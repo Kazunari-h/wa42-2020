@@ -12,6 +12,34 @@
             郵便番号: <input id="zipcode" type="text" placeholder="151-0001">
         </label>
         <div id="result"></div>
+
+        <script defer src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script>
+            // 郵便番号が入力されたら
+            window.addEventListener("load", () => {
+                const url = "https://zipcloud.ibsnet.co.jp/api/search"
+                document.getElementById("zipcode")
+                    .addEventListener("blur", event => {
+                        if (event.target.value.length === 8) {
+                            axios
+                                .get(`${url}?zipcode=${event.target.value}`)
+                                .then(response => {
+                                    // 結果
+                                    const address = response.data.results[0]
+                                    document.getElementById("result").innerHTML = `${address.address1}${address.address2}${address.address3}`
+                                })
+                                .catch(error => {
+                                    // エラー
+                                    console.log(error);
+                                })
+                        }
+                    })
+            })
+            // APIにhttp requestする
+            // 帰ってきた値を resultに表示する
+
+
+        </script>
     </body>
 
 </html>
