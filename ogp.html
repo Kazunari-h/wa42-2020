@@ -9,7 +9,7 @@
 
     <body>
         <input type="url" id="url">
-        <div class="result">
+        <div id="result">
 
         </div>
         <script defer src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -20,7 +20,20 @@
                     .addEventListener("blur", event => {
                         axios.get(`https://wa25-ogp-api.herokuapp.com/?url=${event.target.value}`)
                             .then(response => {
-                                console.log(response.data);
+                                const img = document.createElement("img")
+                                img.src = response.data.image
+                                img.alt = response.data.title
+
+                                const h1 = document.createElement("h1")
+                                h1.innerText = response.data.title
+
+                                const p = document.createElement("p")
+                                p.innerText = response.data.description
+
+                                const result = document.getElementById("result")
+                                result.appendChild(h1);
+                                result.appendChild(p);
+                                result.appendChild(img);
                             })
                     })
             });
