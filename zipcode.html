@@ -22,7 +22,12 @@
                     .addEventListener("blur", event => {
                         if (event.target.value.length === 8) {
                             axios
-                                .get(`${url}?zipcode=${event.target.value}`)
+                                .post(
+                                    `${url}?zipcode=${event.target.value}`,
+                                    {
+                                        withCredentials: true
+                                    }
+                                )
                                 .then(response => {
                                     // 結果
                                     const address = response.data.results[0]
@@ -35,10 +40,6 @@
                         }
                     })
             })
-            // APIにhttp requestする
-            // 帰ってきた値を resultに表示する
-
-
         </script>
     </body>
 
